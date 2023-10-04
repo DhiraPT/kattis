@@ -31,30 +31,27 @@ public class joinstrings {
         FastIO fio = new FastIO();
         int N = fio.nextInt();
         String[] arrS = new String[N];
+        int[] next = new int[N];
+        int[] tail = new int[N];
         for (int i = 0; i < N; i++) {
             arrS[i] = fio.nextLine();
+            next[i] = i;
+            tail[i] = i;
         }
-        if (N == 1) {
-            fio.println(arrS[0]);
-        } else {
-            LinkedList<String> result = new LinkedList<>();
-            while (N-- > 1) {
-                int a = fio.nextInt() - 1;
-                int b = fio.nextInt() - 1;
-                if (arrS[a].equals("")) {
-                    result.add(arrS[b]);
-                    arrS[b] = "";
-                } else if (arrS[b].equals("")) {
-                    result.addFirst(arrS[a]);
-                    arrS[a] = "";
-                } else {
-                    result.add(arrS[a]);
-                    result.add(arrS[b]);
-                    arrS[a] = "";
-                    arrS[b] = "";
-                }
+        int a = 0, b;
+        for (int i = 0; i < N - 1; i++) {
+            a = fio.nextInt() - 1;
+            b = fio.nextInt() - 1;
+            if (next[a] == a) {
+                next[a] = b;
+            } else {
+                next[tail[a]] = b;
             }
-            fio.println(String.join("", result));
+            tail[a] = tail[b];
+        }
+        while (N-- > 0) {
+            fio.print(arrS[a]);
+            a = next[a];
         }
         fio.close();
     }
