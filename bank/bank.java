@@ -41,12 +41,10 @@ public class bank {
             if (cmp == 0) return p1[1] - p2[1];
             return cmp;
         });
-        boolean[] times = new boolean[T];
-        for (int j = T-1; j >= 0; j--) {
-            if (!times[j] && !q.isEmpty()) {
+        for (int i = T-1; i >= 0; i--) {
+            if (!q.isEmpty()) {
                 for (int[] p: q) {
-                    if (j <= p[1]) {
-                        times[j] = true;
+                    if (i <= p[1]) {
                         sum += p[0];
                         q.remove(p);
                         break;
